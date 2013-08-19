@@ -1,4 +1,4 @@
-package michi;
+package reuters.bayes;
 import org.apache.hadoop.util.ProgramDriver;
 
 
