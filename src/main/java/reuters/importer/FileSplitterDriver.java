@@ -30,7 +30,7 @@ public class FileSplitterDriver extends Configured implements Tool {
 		
 		job.setMapperClass(FileSplitterMapper.class);
 		
-		job.setOutputFormatClass(SequenceFileOutputFormat.class);
+//		job.setOutputFormatClass(SequenceFileOutputFormat.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
 		
