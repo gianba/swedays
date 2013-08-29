@@ -63,6 +63,11 @@
 			<artifactId>mahout-core</artifactId>
 			<version>0.7</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-math</artifactId>
+			<version>0.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>
