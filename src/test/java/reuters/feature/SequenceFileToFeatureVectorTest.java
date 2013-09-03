@@ -17,15 +17,15 @@ public class SequenceFileToFeatureVectorTest {
 		conf.set("fs.default.name", "file:///");
 		conf.set("mapred.job.tracker", "local");
 		
-		Path input = new Path("splitted");
-		Path output = new Path("extracted");
+		Path input = new Path("tmp", "splitted");
+		Path output = new Path("tmp", "extracted");
 		FileSystem fs = FileSystem.getLocal(conf);
 		fs.delete(output, true);
 		
 		SparseVectorsFromSequenceFiles driver = new SparseVectorsFromSequenceFiles();
 		driver.setConf(conf);
 		
-		int exitCode = driver.run(new String[]{"-i", input.toString(), "-o", output.toString() });
+		int exitCode = driver.run(new String[]{"-i", input.toString(), "-o", output.toString(), "-lnorm", "-wt", "tfidf" });
 		assertThat(exitCode, is(0));
 		
 	}

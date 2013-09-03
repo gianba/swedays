@@ -19,14 +19,14 @@ public class FileSplitterDriverTest {
 		conf.set("mapred.job.tracker", "local");
 		
 		Path input = new Path("Data");
-		Path output = new Path("splitted");
+		Path output = new Path("tmp", "splitted");
 		FileSystem fs = FileSystem.getLocal(conf);
 		fs.delete(output, true);
 		
 		FileSplitterDriver driver = new FileSplitterDriver();
 		driver.setConf(conf);
 		
-		int exitCode = driver.run(new String[]{input.toString(), output.toString() });
+		int exitCode = driver.run(new String[]{input.toString(), output.toString(), "-files", "topiclist" });
 		assertThat(exitCode, is(0));
 		
 	}

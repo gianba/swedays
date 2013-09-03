@@ -1,5 +1,6 @@
 package reuters.bayes;
 import org.apache.hadoop.util.ProgramDriver;
+import org.apache.mahout.classifier.naivebayes.training.TrainNaiveBayesJob;
 
 
 
