@@ -29,7 +29,7 @@ public class FileSplitterMapperTest {
 			String line = lineIterator.next();
 			mapDriver.withInputValue(new Text(line));
 			if (BODY_END.equalsIgnoreCase(line) && isFirstMessage) { 			// only first message has topic and hence an output
-				mapDriver.withOutput(new Text("cocoa"), new Text(MESSAGE));
+				mapDriver.withOutput(new Text("/cocoa/"), new Text(MESSAGE));
 				isFirstMessage = false;
 			} else {
 				mapDriver.resetOutput();

@@ -22,6 +22,9 @@ public class FileSplitterDriver extends Configured implements Tool {
 		if(fileSystem.exists(out)){
 			fileSystem.delete(out, true);
 		}
+		boolean storeAsSequenceFile = ! conf.getBoolean( "catOnly", false );
+		storeAsSequenceFile = ! Boolean.parseBoolean( conf.get("catOnly"));
+				
 		Job job = new Job(conf, "file splitter");
 		job.setJarByClass(FileSplitterDriver.class);
 		
@@ -30,7 +33,9 @@ public class FileSplitterDriver extends Configured implements Tool {
 		
 		job.setMapperClass(FileSplitterMapper.class);
 		
-		job.setOutputFormatClass(SequenceFileOutputFormat.class);
+		if(storeAsSequenceFile){
+			job.setOutputFormatClass(SequenceFileOutputFormat.class);
+		}
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
 		

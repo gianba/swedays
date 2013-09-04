@@ -14,6 +14,7 @@ import org.apache.hadoop.filecache.DistributedCache;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.JobConf;
+import org.apache.hadoop.mapreduce.InputSplit;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
@@ -24,6 +25,7 @@ public class FileSplitterMapper extends Mapper<LongWritable, Text, Text, Text> {
 	private List<String> topics = new ArrayList<String>();
 	private String message = "";
 	private boolean isInBody = false;
+	private boolean printCategoriesOnly;
 
 	@Override
 	public void setup(Context context) throws IOException {
@@ -44,6 +46,7 @@ public class FileSplitterMapper extends Mapper<LongWritable, Text, Text, Text> {
 				topicLine = reader.readLine();
 			}
 		}
+		printCategoriesOnly = context.getConfiguration().getBoolean("catOnly", false);
 	}
 	
 	@Override
@@ -70,11 +73,19 @@ public class FileSplitterMapper extends Mapper<LongWritable, Text, Text, Text> {
 	}
 	
 	private void storeMessage(Context context) throws IOException, InterruptedException {
-		String id = ((FileSplit)context.getInputSplit()).getPath().getName() + context.getCurrentKey();
+		String id = "";
+		InputSplit inputSplit = context.getInputSplit();
+		if( inputSplit instanceof FileSplit ){
+			id = ((FileSplit)inputSplit).getPath().getName() + context.getCurrentKey();
+		}
 		Text messageText = new Text(message);
 		for(String topic : topics){
 			if( validTopics.isEmpty() || validTopics.contains( topic ) ){
-				context.write(new Text( "/" + topic + "/" + id ), messageText);
+				if( printCategoriesOnly ){
+					context.write(new Text(topic), messageText);
+				} else {
+					context.write(new Text( "/" + topic + "/" + id ), messageText);
+				}
 			}
 		}
 	}

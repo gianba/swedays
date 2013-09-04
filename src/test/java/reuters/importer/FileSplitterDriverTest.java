@@ -11,7 +11,7 @@ import org.apache.hadoop.fs.Path;
 import org.junit.Test;
 
 public class FileSplitterDriverTest {
-
+	
 	@Test
 	public void testDriver() throws Exception {
 		Configuration conf = new Configuration();
@@ -24,7 +24,9 @@ public class FileSplitterDriverTest {
 		fs.delete(output, true);
 		
 		FileSplitterDriver driver = new FileSplitterDriver();
+		conf.setBoolean("catOnly", true);
 		driver.setConf(conf);
+		
 		
 		int exitCode = driver.run(new String[]{input.toString(), output.toString(), "-files", "topiclist" });
 		assertThat(exitCode, is(0));
