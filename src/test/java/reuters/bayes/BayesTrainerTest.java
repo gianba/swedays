@@ -17,6 +17,8 @@ public class BayesTrainerTest {
 		conf.set("fs.default.name", "file:///");
 		conf.set("mapred.job.tracker", "local");
 				
+		
+		System.out.println(new Path(Path.CUR_DIR));
 		Path input = new Path("result", "training");
 		Path output = new Path("result", "model");
 		Path labels = new Path("result", "labels");
