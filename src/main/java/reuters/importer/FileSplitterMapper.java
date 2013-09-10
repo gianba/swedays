@@ -29,7 +29,7 @@ public class FileSplitterMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 	@Override
 	public void setup(Context context) throws IOException {
-		File file = new File("topiclist");
+		File file = new File("topiclist1");
 		if( file.exists() )
 		{
 			FileReader fileReader = null;
