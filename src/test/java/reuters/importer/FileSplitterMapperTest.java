@@ -20,8 +20,7 @@ public class FileSplitterMapperTest {
 		MapDriver<LongWritable, Text, Text, Text> mapDriver = new MapDriver<LongWritable, Text, Text, Text>()
 				.withMapper(new FileSplitterMapper());
 
-		LineIterator lineIterator = FileUtils.lineIterator(FileUtils
-				.toFile(this.getClass().getResource("twoMessages.txt")));
+		LineIterator lineIterator = FileUtils.lineIterator(FileUtils.toFile(this.getClass().getResource("twoMessages.txt")));
 
 		boolean isFirstMessage = true;
 

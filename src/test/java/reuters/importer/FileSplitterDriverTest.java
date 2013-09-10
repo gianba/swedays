@@ -24,7 +24,7 @@ public class FileSplitterDriverTest {
 		fs.delete(output, true);
 		
 		FileSplitterDriver driver = new FileSplitterDriver();
-		conf.setBoolean("catOnly", true);
+		conf.setBoolean("catOnly", false);
 		driver.setConf(conf);
 		
 		
